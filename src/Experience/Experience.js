@@ -8,38 +8,40 @@ import Resources from './utils/Resources.js'
 import sources from './sources.js'
 import Debug from './utils/Debug.js'
 
-let instance = null
 
 export default class Experience {
-    constructor(container) {
+    constructor(canvas, container) {
 
-        if (instance) {
-            return instance
+        // if (Experience.instance) {
+        //     return Experience.instance
+        // }
+
+        // Experience.instance = this
+        if (!canvas || !container) {
+            throw new Error('Canvas or container element is undefined');
         }
-
-        instance = this
-        //Global access
-        window.experience = this
-
+        console.log('Initializing Experience with canvas and container:', canvas, container);
         //Options 
         this.container = container
+        this.canvas = canvas
+        //console.log(canvas)
+        //console.log(container)
 
 
 
-        // Add canvas to Container
-        this.canvas = document.createElement('canvas');
-        this.canvas.classList.add('webgl');
-        this.container.appendChild(this.canvas);
 
         //Setup 
-        this.debug = new Debug()
-        this.sizes = new Sizes(this.container)
-        this.time = new Time()
         this.scene = new THREE.Scene()
+        this.sizes = new Sizes(container)
+        //console.log(this.sizes)
+
+        this.time = new Time()
+        this.camera = new Camera(this)
+        this.renderer = new Renderer(this)
         this.resources = new Resources(sources)
-        this.camera = new Camera()
-        this.renderer = new Renderer()
-        this.world = new World()
+
+        this.world = new World(this, container)
+        this.debug = new Debug(this)
 
         // Sizes resize event
         this.sizes.on('resize', () => {
@@ -61,4 +63,22 @@ export default class Experience {
         this.world.update()
         this.renderer.update()
     }
+
+    // destroy() {
+    //     this.sizes.off('resize')
+    //     this.time.off('tick')
+    //     this.scene.traverse((child) => {
+    //         if (child instanceof THREE.Mesh) {
+    //             child.geometry.dispose()
+    //             for (const key in child.material) {
+    //                 const value = child.material[key]
+    //                 if (value && typeof value.dispose === 'function') {
+    //                     value.dispose()
+    //                 }
+    //             }
+    //         }
+    //     })
+    //     this.camera.controls.dispose()
+    //     this.renderer.instance.dispose()
+    // }
 }   

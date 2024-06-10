@@ -26,7 +26,7 @@ export default class Resources extends EventEmitter {
 
         //DRACOLoader setup
         this.loaders.dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/gh/CilliersWebSolutions/draco@main/draco/')
-        this.loaders.gltfLoader.setDRACOLoader(DRACOLoader)
+        this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader)
     }
 
     startLoading() {
@@ -44,6 +44,7 @@ export default class Resources extends EventEmitter {
                 this.loaders.textureLoader.load(
                     source.path,
                     (file) => {
+
                         this.sourceLoaded(source, file)
                     }
                 )

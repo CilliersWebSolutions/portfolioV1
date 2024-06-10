@@ -1,20 +1,27 @@
 import EventEmitter from './EventEmitter.js'
-import Experience from "../Experience.js"
+
 
 export default class Sizes extends EventEmitter {
     constructor(container) {
 
         super()
 
+        if (!container) {
+            throw new Error('Container element is undefined');
+        }
+
         this.container = container
-        this.width = container.clientWidth
-        this.height = container.clientHeight
+
+        //console.log('Container:', this.container);
+
+        this.width = this.container.clientWidth
+        this.height = this.container.clientHeight
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
         window.addEventListener('resize', () => {
             // Update sizes
-            this.width = container.clientWidth
-            this.height = container.clientHeight
+            this.width = this.container.clientWidth
+            this.height = this.container.clientHeight
             this.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
             this.trigger('resize')

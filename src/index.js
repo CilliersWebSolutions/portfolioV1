@@ -1,20 +1,42 @@
 
 import Experience from "./Experience/Experience.js";
 
-// import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-// import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  //   init3D();
+
+  //console.log('Webflow has finished loading');
+})
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM fully loaded and parsed');
+  const baseContainers = document.querySelectorAll('[data-3d="c"]')
+
+  baseContainers.forEach(container => {
+    const canvas = document.createElement('canvas')
+    canvas.classList.add('webgl')
+    container.appendChild(canvas)
+    //console.log("Initializing Experience for base container", container);
+    //console.log(container)
+    //console.log(canvas)
+
+    new Experience(canvas, container)
+  })
+
+  const partContainers = document.querySelectorAll('[data-3d="cr"], [data-3d="sp"], [data-3d="gn"], [data-3d="ma"]')
+
+  partContainers.forEach(container => {
+    const canvas = document.createElement('canvas')
+    canvas.classList.add('webgl')
+    container.appendChild(canvas)
+    //console.log("Initializing Experience for part container", container);
+    new Experience(canvas, container)
+  })
+})
 
 
-
-  const baseContainer = document.querySelector('[data-3d="c"]');
-  if (baseContainer) {
-    const experience = new Experience(baseContainer)
-  }
+  // if (baseContainer) {
+  //   const experience = new Experience(baseContainer)
+  // }
 
 
 
@@ -26,7 +48,7 @@ window.Webflow.push(() => {
 
   //   console.log(partContainers)
 
-})
+
 
 
 // function init3D() {
@@ -87,8 +109,8 @@ window.Webflow.push(() => {
 //   gltfLoader.load('https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/664cd59c394d2c8d2483d381_robotWithAddonsCentered.glb.txt',
 //     (gltf) => {
 
-//       baseMesh = gltf.scene.children.find(child => child.name === 'baseBaked');
-
+//
+ //baseMesh = gltf.scene.children.find(child => child.name === 'baseBaked');
 //       baseMesh.material = bakedMaterialRobotBase;
 
 //       addonsMeshes['cr'] = gltf.scene.children.find(child => child.name === 'sataliteBaked');

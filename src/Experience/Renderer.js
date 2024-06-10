@@ -1,14 +1,14 @@
 import * as THREE from 'three'
-import Experience from './Experience'
+
 
 export default class Renderer {
-    constructor() {
-        this.experience = new Experience()
+    constructor(experience) {
+        this.experience = experience
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.camera = this.experience.camera
-
+        console.log('test renderer')
         this.setInstance()
     }
 
@@ -19,8 +19,7 @@ export default class Renderer {
             antialias: true,
             alpha: true
         })
-        //this.instance.physicallyCorrectLights = true
-        //this.instance.outputEncoding = THREE.SRGBColorSpace
+
         this.instance.toneMapping = THREE.CineonToneMapping
         this.instance.toneMappingExposure = 1.75
         this.instance.shadowMap.enabled = true

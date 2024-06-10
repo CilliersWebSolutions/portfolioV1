@@ -1,25 +1,27 @@
 import * as THREE from 'three'
-import Experience from '../Experience.js'
+
+
 
 
 
 export default class Fox {
-    constructor() {
+    constructor(experience) {
 
         // Setup
 
-        this.experience = new Experience()
-
-        this.debug = this.experience.debug
+        this.experience = experience
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.time = this.experience.time
+        this.debug = this.experience.debug
+        //console.log('test code works up to here')
 
-
-        this.resource = this.resources.items.foxModel
-
+        this.resource = this.experience.resources.items.foxModel
+        // console.log(this.resources)
+        // console.log('Fox class initialized with resources:', this.resources);
+        // console.log('Time in Fox class:', this.time);
         // Debug
-        if (this.debug.active) {
+        if (this.debug && this.debug.active) {
             this.debugFolder = this.debug.ui.addFolder('fox')
         }
 
@@ -31,6 +33,7 @@ export default class Fox {
     setModel() {
         this.model = this.resource.scene
         this.model.scale.set(0.02, 0.02, 0.02)
+        //console.log(this.model)
         this.scene.add(this.model)
 
         this.model.traverse((child) => {
@@ -67,7 +70,7 @@ export default class Fox {
             this.animation.actions.current = newAction
         }
         // Debug
-        if (this.debug.active) {
+        if (this.debug && this.debug.active) {
             const debugObject = {
                 playIdle: () => { this.animation.play('idle') },
                 playWalking: () => { this.animation.play('walking') },
