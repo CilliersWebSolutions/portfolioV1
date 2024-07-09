@@ -12,35 +12,24 @@ import Debug from './utils/Debug.js'
 export default class Experience {
     constructor(canvas, container) {
 
-        // if (Experience.instance) {
-        //     return Experience.instance
-        // }
-
-        // Experience.instance = this
-        if (!canvas || !container) {
-            throw new Error('Canvas or container element is undefined');
-        }
-        console.log('Initializing Experience with canvas and container:', canvas, container);
         //Options 
         this.container = container
         this.canvas = canvas
-        //console.log(canvas)
-        //console.log(container)
 
-
-
+        this.containerAttribute = container.getAttribute('data-3d');
 
         //Setup 
         this.scene = new THREE.Scene()
         this.sizes = new Sizes(container)
-        //console.log(this.sizes)
 
         this.time = new Time()
-        this.camera = new Camera(this)
+        this.camera = new Camera(this, container)
         this.renderer = new Renderer(this)
         this.resources = new Resources(sources)
 
+
         this.world = new World(this, container)
+        //console.log(this.world)
         this.debug = new Debug(this)
 
         // Sizes resize event
@@ -63,22 +52,4 @@ export default class Experience {
         this.world.update()
         this.renderer.update()
     }
-
-    // destroy() {
-    //     this.sizes.off('resize')
-    //     this.time.off('tick')
-    //     this.scene.traverse((child) => {
-    //         if (child instanceof THREE.Mesh) {
-    //             child.geometry.dispose()
-    //             for (const key in child.material) {
-    //                 const value = child.material[key]
-    //                 if (value && typeof value.dispose === 'function') {
-    //                     value.dispose()
-    //                 }
-    //             }
-    //         }
-    //     })
-    //     this.camera.controls.dispose()
-    //     this.renderer.instance.dispose()
-    // }
 }   

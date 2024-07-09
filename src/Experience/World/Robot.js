@@ -1,11 +1,11 @@
-import * as THREE from 'three';
+import * as THREE from 'three'
 
 export default class Robot {
-    constructor(experience, partAttribute) {
+    constructor(experience, containerAttribute) {
         // Setup
 
         this.experience = experience
-        this.partAttribute = partAttribute
+        this.partAttribute = containerAttribute
 
         this.scene = this.experience.scene
         this.resources = this.experience.resources
@@ -15,81 +15,81 @@ export default class Robot {
 
         // Load the model resource
         this.resource = this.resources.items.robotModel
-        this.baseTexture = this.resources.items.bakedTextureRobotBase;
-        this.addonsTexture = this.resources.items.bakedTextureRobotAddons;
-
-        // Debug
-        if (this.debug.active) {
-            this.debugFolder = this.debug.ui.addFolder('robot')
-        }
+        this.baseTexture = this.resources.items.bakedTextureRobotBase
+        this.addonsTexture = this.resources.items.bakedTextureRobotAddons
 
         // Initialize the model and animation
-        this.setModel(partAttribute)
+        this.setModel(containerAttribute)
         //this.setAnimation()
     }
 
-    setModel(partAttribute) {
+    setModel(containerAttribute) {
 
-        const baseMesh = this.resource.scene.children.find(child => child.name === 'baseBaked').clone();
+
+        const baseMesh = this.resource.scene.children.find(child => child.name === 'baseBaked').clone()
         if (!baseMesh) {
-            console.error('Base mesh not found!');
+            console.error('Base mesh not found!')
             return;
         }
+        baseMesh.scale.set(1.5, 1.5, 1.5)
+        baseMesh.material = new THREE.MeshStandardMaterial({ map: this.baseTexture })
+        this.setupTexture(baseMesh.material.map)
+        baseMesh.material.side = THREE.DoubleSide
+        baseMesh.scale.set(1.5, 1.5, 1.5)
+        baseMesh.position.y = 1.2
 
-        baseMesh.material = new THREE.MeshBasicMaterial({ map: this.baseTexture });
-        this.setupTexture(baseMesh.material.map);
-
-        this.scene.add(baseMesh);
-        console.log('Base mesh added:', baseMesh);
+        this.scene.add(baseMesh)
+        //console.log('Base mesh added:', baseMesh);
 
 
 
         // Initialize addons meshes
-        const addonsMeshes = {};
-        addonsMeshes['cr'] = this.resource.scene.children.find(child => child.name === 'sataliteBaked');
-        addonsMeshes['sp'] = this.resource.scene.children.find(child => child.name === 'solarBaked');
-        addonsMeshes['gn'] = this.resource.scene.children.find(child => child.name === 'gunBaked');
-        addonsMeshes['ma'] = this.resource.scene.children.find(child => child.name === 'armBaked');
+        const addonsMeshes = {}
+        addonsMeshes['cr'] = this.resource.scene.children.find(child => child.name === 'satelliteBaked')
+        addonsMeshes['sp'] = this.resource.scene.children.find(child => child.name === 'solarBaked')
+        addonsMeshes['gn'] = this.resource.scene.children.find(child => child.name === 'gunBaked')
+        addonsMeshes['ma'] = this.resource.scene.children.find(child => child.name === 'armBaked')
 
         // Apply materials to addon meshes
         for (const key in addonsMeshes) {
             if (addonsMeshes[key]) {
-                addonsMeshes[key].material = new THREE.MeshBasicMaterial({ map: this.addonsTexture });
+                addonsMeshes[key].material = new THREE.MeshStandardMaterial({ map: this.addonsTexture })
             }
         }
 
 
-        if (addonsMeshes[partAttribute]) {
-            const addonMesh = addonsMeshes[partAttribute].clone();
+        if (addonsMeshes[containerAttribute]) {
+            const addonMesh = addonsMeshes[containerAttribute].clone();
             this.setupTexture(addonMesh.material.map);
+
+            addonMesh.scale.set(1.5, 1.5, 1.5)
+            addonMesh.position.y = 1.2
+
             this.scene.add(addonMesh);
-            console.log('Addon mesh added:', addonMesh);
+            //console.log('Addon mesh added:', addonMesh);
 
 
             // Enable shadows for addon mesh
             addonMesh.traverse((child) => {
                 if (child instanceof THREE.Mesh) {
-                    child.castShadow = true;
+                    child.castShadow = true
                 }
-            });
+            })
         } else {
-            console.warn('Addon mesh not found for partAttribute:', partAttribute);
+            console.warn('Addon mesh not found for containerAttribute:', containerAttribute);
         }
-
-
-
-
 
         // Enable shadows for base mesh
         baseMesh.traverse((child) => {
             if (child instanceof THREE.Mesh) {
-                child.castShadow = true;
+                child.castShadow = true
             }
-        });
+        })
     }
+
     setupTexture(texture) {
-        texture.flipY = false; // Flip texture
-        texture.encoding = THREE.SRGBColorSpace;
+        texture.flipY = false // Flip texture
+        texture.encoding = THREE.SRGBColorSpace
     }
 }
 

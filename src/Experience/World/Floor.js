@@ -17,12 +17,12 @@ export default class Floor {
     }
 
     setGeometry() {
-        this.geometry = new THREE.CircleGeometry(6, 64)
+        this.geometry = new THREE.CircleGeometry(20, 64)
     }
 
     setTextures() {
         this.textures = {}
-        //console.log(this.textures)
+
         this.textures.color = this.experience.resources.items.grassColorTexture
         this.textures.color.colorSpace = THREE.SRGBColorSpace
         this.textures.color.repeat.set(1.5, 1.5)

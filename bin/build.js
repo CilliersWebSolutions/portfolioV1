@@ -1,5 +1,5 @@
 import * as esbuild from 'esbuild';
-import { readdirSync } from 'fs';
+import { readdirSync, } from 'fs';
 import { join, sep } from 'path';
 
 // Config output
@@ -40,7 +40,7 @@ else {
   await context
     .serve({
       servedir: BUILD_DIRECTORY,
-      port: SERVE_PORT,
+      port: SERVE_PORT
     })
     .then(logServedFiles);
 }
