@@ -12,20 +12,16 @@ export default class Particles {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.time = this.experience.time
-        this.debug = this.experience.debug
         this.sizes = this.experience.sizes
 
         this.resource = this.experience.resources.items.morphModels
-        //console.log("model text to be loaded", this.experience.resources.items.morphModels)
 
 
-        //this.setTextures()
+
         this.setMaterial()
         this.setMesh()
         this.setPoints()
-        //this.setDebug()
-        //this.setModel()
-        //this.setAnimation()
+
         this.index = 0  // Initialize the index for the morphing
 
         this.morphDuration = 4;  // Duration for each morph
@@ -44,19 +40,12 @@ export default class Particles {
 
         const positions = this.resource.scene.children.map(child => child.geometry.attributes.position);
 
-        // // Ensure positions is not empty
-        // if (positions.length === 0) {
-        //     console.error("No positions available in the resource.")
-        //     return
-        // }
-
         // Ensure all entries in positions have valid count values
         this.maxCount = Math.max(...positions.map(p => p.count || 0))
         if (this.maxCount <= 0) {
             console.error("Invalid count values in positions.")
             return;
         }
-
 
         this.positions = positions.map(pos => {
             const array = new Float32Array(this.maxCount * 3);
@@ -85,6 +74,7 @@ export default class Particles {
         this.geometry.setAttribute('aSize', new THREE.BufferAttribute(this.sizes, 1))
 
     }
+
     setMaterial() {
         this.material = new THREE.ShaderMaterial({
             vertexShader: new VertexShader().getShader(),
@@ -101,6 +91,7 @@ export default class Particles {
             transparent: true,
         });
     }
+
     setPoints() {
         this.points = new THREE.Points(this.geometry, this.material)
         this.points.frustumCulled = false
@@ -114,15 +105,6 @@ export default class Particles {
 
     }
 
-    // setDebug() {
-    //     if (this.debug && this.debug.active) {
-    //         this.debugFolder = this.debug.ui.addFolder('particles')
-
-    //         this.debugFolder.addColor(this.material.uniforms.uColorA, 'value').name('Color A')
-    //         this.debugFolder.addColor(this.material.uniforms.uColorB, 'value').name('Color B')
-    //         this.debugFolder.add(this.material.uniforms.uProgress, 'value').min(0).max(1).step(0.001).name('Progress')
-    //     }
-    // }
     morphFirst(index, duration = this.morphDuration) {
         this.geometry.attributes.position = this.positions[this.index]
         this.geometry.attributes.aPositionTarget = this.positions[index]
@@ -131,6 +113,7 @@ export default class Particles {
 
         this.index = index
     }
+
     morph(index, duration = this.morphDuration) {
         this.geometry.attributes.position = this.positions[this.index]
         this.geometry.attributes.aPositionTarget = this.positions[index]
@@ -139,7 +122,6 @@ export default class Particles {
 
         this.index = index
     }
-
 
     morphToNextMesh() {
         // Start with an immediate morph to the first mesh from the initial state

@@ -70,7 +70,8 @@ export default class World {
     update() {
         if (this.rubix)
             this.rubix.update()
-        if (this.experience.camera) this.experience.camera.update();
-        //if (this.shirt) this.shirt.update();
+
+        if (this.experience.camera)
+            this.experience.camera.update();
     }
 }

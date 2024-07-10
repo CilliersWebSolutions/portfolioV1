@@ -1,9 +1,5 @@
 import * as THREE from 'three'
 
-
-
-
-
 export default class Cap {
     constructor(experience) {
 
@@ -13,7 +9,6 @@ export default class Cap {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.time = this.experience.time
-        this.debug = this.experience.debug
 
         this.resource = this.experience.resources.items.shirtModel
 
@@ -73,7 +68,6 @@ export default class Cap {
 
 
         capMesh.material = new THREE.MeshStandardMaterial({ map: this.textures[this.selectedColor][this.selectedGraphic] })
-        //console.log('Cap Textures loaded:', capMesh.material)
 
         this.setupTexture(capMesh.material.map);
         capMesh.material.side = THREE.DoubleSide
@@ -110,11 +104,11 @@ export default class Cap {
             })
         })
     }
+
     addEventListeners() {
         document.querySelectorAll('[button-round="cap"]').forEach(button => {
 
             button.addEventListener('click', (event) => {
-                //console.log('Color cap button clicked:', event.target.dataset.color)
                 this.selectedColor = event.target.dataset.color;
                 this.updateTexture();
             });
@@ -123,7 +117,6 @@ export default class Cap {
         document.querySelectorAll('[button-graphic="cap"]').forEach(button => {
 
             button.addEventListener('click', (event) => {
-                //console.log('Graphic cap button clicked:', event.target.dataset.graphic)
                 this.selectedGraphic = event.target.dataset.graphic;
                 this.updateTexture()
             });
@@ -138,8 +131,6 @@ export default class Cap {
             this.setupTexture(newTexture)
             this.capMesh.material.map = newTexture
             this.capMesh.material.needsUpdate = true
-        } else {
-            console.error('cap Texture not found for selected attributes.')
         }
     }
 }

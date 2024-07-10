@@ -6,12 +6,9 @@ export default class Environment {
         this.experience = experience
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-        this.debug = this.experience.debug
+
         this.containerAttribute = container.getAttribute('data-3d')
 
-        if (this.debug.active) {
-            this.debugFolder = this.debug.ui.addFolder('environment')
-        }
 
         if (['cr', 'sp', 'gn', 'ma'].includes(this.containerAttribute)) {
             this.setDirectionalLight()
@@ -105,7 +102,6 @@ export default class Environment {
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
 
-
         this.scene.environment = this.environmentMap.texture
 
         this.environmentMap.updateMaterial = () => {
@@ -120,6 +116,7 @@ export default class Environment {
 
         this.environmentMap.updateMaterial()
     }
+
     setEnvironmentMap3() {
         this.environmentMap = {}
 
@@ -127,7 +124,6 @@ export default class Environment {
 
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
-
 
         this.scene.environment = this.environmentMap.texture
 

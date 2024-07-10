@@ -8,13 +8,10 @@ export default class Shirt {
     constructor(experience) {
 
         // Setup
-
         this.experience = experience
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.time = this.experience.time
-        this.debug = this.experience.debug
-
         this.resource = this.experience.resources.items.shirtModel
 
 
@@ -24,7 +21,6 @@ export default class Shirt {
         this.selectedPosition = 'center'
 
         this.isBackShowing = false
-
         this.initialOrientation = new THREE.Vector3(0, 0, 0)
 
         // Store the original settings of the OrbitControls
@@ -181,6 +177,7 @@ export default class Shirt {
         // Store the initial orientation
         this.initialOrientation.copy(shirtMesh.rotation)
     }
+
     setupTexture(texture) {
         texture.flipY = false; // Flip texture
         texture.encoding = THREE.SRGBColorSpace;
@@ -201,6 +198,7 @@ export default class Shirt {
             });
         });
     }
+
     addEventListeners() {
         document.querySelectorAll('[button-round="shirt"]').forEach(button => {
             button.addEventListener('click', (event) => {
@@ -233,11 +231,9 @@ export default class Shirt {
     }
 
     updateTexture() {
-
-
         // Check if selectedGraphic is defined
         if (!this.selectedGraphic) {
-            console.error('Selected graphic is undefined.');
+
             return
         }
 
@@ -248,8 +244,6 @@ export default class Shirt {
             this.setupTexture(newTexture)
             this.shirtMesh.material.map = newTexture
             this.shirtMesh.material.needsUpdate = true
-        } else {
-            console.error('Texture not found for selected attributes.')
         }
     }
     rotateShirt(toBack) {

@@ -1,9 +1,5 @@
 import * as THREE from 'three'
 
-
-
-
-
 export default class Mug {
     constructor(experience) {
 
@@ -13,18 +9,13 @@ export default class Mug {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.time = this.experience.time
-        this.debug = this.experience.debug
-        //console.log('test mug code works up to here')
 
         this.resource = this.experience.resources.items.shirtModel
-        //console.log('successfully loaded the mug', this.resource)
 
         // Initialize selected attributes
         this.selectedColor = 'orange'
         this.selectedGraphic = 'flame'
 
-        //focus buttons
-        //focusedGraphicButton = document.getElementsByClassName
 
         // Load Textures
         this.loadTextures()
@@ -71,16 +62,14 @@ export default class Mug {
                 ball: this.resources.items.cupWhiteBall
             }
         }
-        // Debugging log for textures
-        //console.log('mug Textures loaded:', this.textures)
     }
 
     setModel() {
         const mugMesh = this.resource.scene.children.find(child => child.name === 'cupBaked')
-        //console.log('mug mesh loadedddd', mugMesh)
+
 
         mugMesh.material = new THREE.MeshStandardMaterial({ map: this.textures[this.selectedColor][this.selectedGraphic] })
-        //console.log('mug Textures loaded:', mugMesh.material)
+
 
         this.setupTexture(mugMesh.material.map);
         mugMesh.material.side = THREE.DoubleSide
@@ -121,17 +110,14 @@ export default class Mug {
     addEventListeners() {
         document.querySelectorAll('[button-round="mug"]').forEach(button => {
             button.addEventListener('click', (event) => {
-                //console.log('Color mug button clicked:', event.target.dataset.color);
                 this.selectedColor = event.target.dataset.color;
                 this.updateTexture();
             });
         });
 
         document.querySelectorAll('[button-graphic="mug"]').forEach(button => {
-
             button.addEventListener('click', (event) => {
-                //console.log('Graphic mug button clicked:', event.target.dataset.graphic);
-                this.selectedGraphic = event.target.dataset.graphi
+                this.selectedGraphic = event.target.dataset.graphic
                 this.updateTexture()
             });
         });
@@ -140,12 +126,6 @@ export default class Mug {
     updateTexture() {
         console.log('Updating mug texture with:', this.selectedColor, this.selectedGraphic);
 
-        // Check if selectedGraphic is defined
-        if (!this.selectedGraphic) {
-            console.error('Selected mug graphic is undefined.');
-            return;
-        }
-
         // Retrieve texture based on selected attributes
         const newTexture = this.textures[this.selectedColor]?.[this.selectedGraphic]
 
@@ -153,8 +133,6 @@ export default class Mug {
             this.setupTexture(newTexture)
             this.mugMesh.material.map = newTexture
             this.mugMesh.material.needsUpdate = true
-        } else {
-            console.error('mug Texture not found for selected attributes.')
         }
     }
 
