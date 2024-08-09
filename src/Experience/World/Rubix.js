@@ -18,7 +18,7 @@ export default class Rubix {
 
         this.setMesh()
         this.setAnimation()
-        this.setupMaterialSwitching()
+        //this.setupMaterialSwitching()
     }
 
     setMesh() {

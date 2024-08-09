@@ -23,7 +23,7 @@ export default class Camera {
         if (this.containerAttribute === 'c') {
             this.instance = new THREE.PerspectiveCamera(15, this.sizes.width / this.sizes.height, 0.1, 100)
             // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
-            this.instance.position.set(0, 0, 20)
+            this.instance.position.set(0, 0, 25)
             this.scene.add(this.instance)
         }
         else if (['cr', 'sp', 'gn', 'ma'].includes(this.containerAttribute)) {
@@ -100,7 +100,7 @@ export default class Camera {
             this.controls.autoRotateSpeed = 0.5
 
 
-            this.controls.enableZoom = true
+            this.controls.enableZoom = false
         }
         else {
             this.controls = new OrbitControls(this.instance, this.canvas)
