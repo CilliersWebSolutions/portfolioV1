@@ -81,6 +81,7 @@ export default class Mug {
         mugMesh.traverse((child) => {
             if (child instanceof THREE.Mesh) {
                 child.castShadow = true
+
             }
         });
 

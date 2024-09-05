@@ -33,12 +33,17 @@ export default class Particles {
 
     setMesh() {
 
+        // Sorts the children of the current scene by their names in ascending order.
+        // The sorting is done using the localeCompare method, which compares two strings
+        // in a case-sensitive manner based on the current locale.
+        //
+        // Returns an array of sorted children.
         const sortedChildren = this.resource.scene.children.sort((a, b) => {
             return a.name.localeCompare(b.name); // Sort by name
         });
 
 
-        const positions = this.resource.scene.children.map(child => child.geometry.attributes.position);
+        const positions = sortedChildren.map(child => child.geometry.attributes.position);
 
         // Ensure all entries in positions have valid count values
         this.maxCount = Math.max(...positions.map(p => p.count || 0))
@@ -83,8 +88,8 @@ export default class Particles {
                 uSize: { value: 2 },
                 uProgress: { value: 0 },
                 uResolution: { value: new THREE.Vector2(this.sizes.width * this.sizes.pixelRatio, this.sizes.height * this.sizes.pixelRatio) },
-                uColorA: { value: new THREE.Color('#EE6C4D') },
-                uColorB: { value: new THREE.Color('#EE6C4D') },
+                uColorA: { value: new THREE.Color('#98d9ce') },
+                uColorB: { value: new THREE.Color('#98d9ce') },
             },
             blending: THREE.AdditiveBlending,
             depthWrite: false,

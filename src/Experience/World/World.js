@@ -9,6 +9,7 @@ import Particles from './Particles.js'
 import Shirt from './Shirt.js'
 import Cap from './Cap.js'
 import Mug from './Mug.js'
+import Map from './Map.js'
 
 export default class World {
     constructor(experience, container) {
@@ -32,33 +33,32 @@ export default class World {
 
             } else if (this.containerAttribute === 'an') {
 
-                // this.floor = new Floor(this.experience)
                 this.rubix = new Rubix(this.experience)
-
                 this.environment = new Environment(this.experience, container)
 
             } else if (['cr', 'sp', 'gn', 'ma'].includes(this.containerAttribute)) {
 
-                //this.floor = new Floor(this.experience)
                 this.robot = new Robot(this.experience, this.containerAttribute)
                 this.environment = new Environment(this.experience, container)
             }
             else if (this.containerAttribute === 'sh') {
 
-                //this.floor = new Floor(this.experience)
                 this.shirt = new Shirt(this.experience)
                 this.environment = new Environment(this.experience, container)
             }
             else if (this.containerAttribute === 'cp') {
 
-                //this.floor = new Floor(this.experience)
                 this.cap = new Cap(this.experience)
                 this.environment = new Environment(this.experience, container)
             }
             else if (this.containerAttribute === 'mg') {
 
-                //this.floor = new Floor(this.experience)
                 this.mug = new Mug(this.experience)
+                this.environment = new Environment(this.experience, container)
+            }
+            else if (this.containerAttribute === 'map') {
+
+                this.map = new Map(this.experience)
                 this.environment = new Environment(this.experience, container)
             }
             else {
@@ -68,10 +68,15 @@ export default class World {
     }
 
     update() {
+
         if (this.rubix)
             this.rubix.update()
 
         if (this.experience.camera)
             this.experience.camera.update();
+
+        if (this.Particles)
+            this.experience.camera.update();
+
     }
 }

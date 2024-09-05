@@ -22,18 +22,49 @@ export default class Environment {
             //this.setDirectionalLight()
         }
 
-        else if (this.containerAttribute === 'sh', 'cp', 'mg') {
+        // some code
+
+
+        else if (this.containerAttribute === 'sh' || this.containerAttribute === 'cp' || this.containerAttribute === 'mg') {
 
             this.setEnvironmentMap2()
             this.setDirectionalLight2()
         }
 
-    }
+        else if (this.containerAttribute === 'map') {
+            this.ambLight = new THREE.AmbientLight(0x404040, 20)
+            this.scene.add(this.ambLight)
 
+
+            this.setEnvironmentMap()
+            this.setDirectionalLightMap()
+        }
+    }
     setDirectionalLight() {
         this.dirLight = new THREE.DirectionalLight(0xffffff, 10)
         this.dirLight.position.set(0, 2, 1)
         this.scene.add(this.dirLight)
+
+    }
+
+    setDirectionalLightMap() {
+        this.dirLightMap = new THREE.DirectionalLight(0xffffff, 2)
+        this.dirLightMap.position.set(-6, -3, 9)
+        this.dirLightMap.rotation.x = Math.PI / 9
+        this.dirLightMap.target.position.set(11, 0, 0)
+        this.dirLightMap.shadow.camera.far = 500
+        this.dirLightMap.shadow.mapSize.set(4096, 4096)
+        this.dirLightMap.shadow.normalBias = 0.05
+        this.dirLightMap.castShadow = true
+
+        const d = 50
+        this.dirLightMap.shadow.camera.left = -d
+        this.dirLightMap.shadow.camera.right = d
+        this.dirLightMap.shadow.camera.top = d
+        this.dirLightMap.shadow.camera.bottom = -d
+        this.scene.add(this.dirLightMap)
+        const helper = new THREE.DirectionalLightHelper(this.dirLightMap, 1);
+        this.scene.add(helper);
     }
 
     setDirectionalLight2() {
@@ -56,11 +87,6 @@ export default class Environment {
 
     setAmbLight() {
         this.ambLight = new THREE.AmbientLight(0x404040, 80)
-
-        // this.dirLight.castShadow = true
-        // this.dirLight.shadow.camera.far = 15
-        // this.dirLight.shadow.mapSize.set(1024, 1024)
-        // this.dirLight.shadow.normalBias = 0.05
 
         //this.ambLight.position.set(1, 1, 1)
 

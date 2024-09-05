@@ -95,50 +95,50 @@ export default class Rubix {
         playForwardThenBackward()
     }
 
-    setupMaterialSwitching() {
-        const loopMaterials = () => {
-            //console.log("start")
+    // setupMaterialSwitching() {
+    //     const loopMaterials = () => {
+    //         //console.log("start")
 
-            setTimeout(() => {
-                //console.log("test 2")
-                this.setWireframeMesh()
-                setTimeout(() => {
-                    //console.log("test 1")
-                    this.restoreOriginalMaterial()
-                    setTimeout(loopMaterials, 1)  // Loop back to start
-                }, 23000)
+    //         setTimeout(() => {
+    //             //console.log("test 2")
+    //             this.setWireframeMesh()
+    //             setTimeout(() => {
+    //                 //console.log("test 1")
+    //                 this.restoreOriginalMaterial()
+    //                 setTimeout(loopMaterials, 1)  // Loop back to start
+    //             }, 23000)
 
-            }, 23000)
-        }
+    //         }, 23000)
+    //     }
 
-        loopMaterials()
-    }
+    //     loopMaterials()
+    // }
 
-    setBareMesh() {
-        this.model.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.material = new THREE.MeshStandardMaterial({ color: 0xf8f3dd })
-            }
-        })
-    }
+    // setBareMesh() {
+    //     this.model.traverse((child) => {
+    //         if (child instanceof THREE.Mesh) {
+    //             child.material = new THREE.MeshStandardMaterial({ color: 0xf8f3dd })
+    //         }
+    //     })
+    // }
 
-    setWireframeMesh() {
-        this.model.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.material = new THREE.MeshBasicMaterial({ wireframe: true, color: 0xe0fbfc })
-            }
-        })
-    }
+    // setWireframeMesh() {
+    //     this.model.traverse((child) => {
+    //         if (child instanceof THREE.Mesh) {
+    //             child.material = new THREE.MeshBasicMaterial({ wireframe: true, color: 0xe0fbfc })
+    //         }
+    //     })
+    // }
 
-    restoreOriginalMaterial() {
-        this.model.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.material = new THREE.MeshStandardMaterial({ map: this.texture })
-                this.setupTexture(child.material.map)
-            }
-        })
+    // restoreOriginalMaterial() {
+    //     this.model.traverse((child) => {
+    //         if (child instanceof THREE.Mesh) {
+    //             child.material = new THREE.MeshStandardMaterial({ map: this.texture })
+    //             this.setupTexture(child.material.map)
+    //         }
+    //     })
 
-    }
+    // }
 
 
 

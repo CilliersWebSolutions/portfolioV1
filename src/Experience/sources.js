@@ -4,6 +4,11 @@ export default [
         type: 'gltfModel',
         path: 'https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/668c274f301e4bdef405634c_HeadingsLeftAligned.glb.txt'
     },
+    {
+        name: 'mapModel',
+        type: 'gltfModel',
+        path: 'https://uploads-ssl.webflow.com/66c09f059cf529f5766a54b1/66c9d997e04685acef250d12_mapBakedAppliedTransforms.glb.txt'
+    },
 
     {
         name: 'environmentMapTexture',
@@ -17,10 +22,16 @@ export default [
             'https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/665b21dcc8f3b58e5d2f7d79_nz.webp'
         ]
     },
-    // {
-    //     name: 'grassColorTexture',
-    //     type: 'texture',
-    //     path: 'https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/66734b30fe2f26731e806673_forest_floor_albedo.jpg'
+
+
+    {
+        name: 'mapTexture',
+        type: 'texture',
+        path: 'https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/66bcb66e3828f2521d63556b_mapTextureBakedV2.avif'
+    },
+    //         name: 'grassColorTexture',
+    //         type: 'texture',
+    //         path: 'https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/66734b30fe2f26731e806673_forest_floor_albedo.jpg'
     // },
     // {
     //     name: 'grassNormalTexture',
