@@ -27,31 +27,31 @@ export default class World {
 
 
             // Setup
-            if (this.containerAttribute === 'c') {
+            if (this.containerAttribute === 'particles') {
 
                 this.Particles = new Particles(this.experience)
 
-            } else if (this.containerAttribute === 'an') {
+            } else if (this.containerAttribute === 'rubix') {
 
                 this.rubix = new Rubix(this.experience)
                 this.environment = new Environment(this.experience, container)
 
-            } else if (['cr', 'sp', 'gn', 'ma'].includes(this.containerAttribute)) {
+            } else if (['sat', 'solar', 'gun', 'arm'].includes(this.containerAttribute)) {
 
                 this.robot = new Robot(this.experience, this.containerAttribute)
                 this.environment = new Environment(this.experience, container)
             }
-            else if (this.containerAttribute === 'sh') {
+            else if (this.containerAttribute === 'shirt') {
 
                 this.shirt = new Shirt(this.experience)
                 this.environment = new Environment(this.experience, container)
             }
-            else if (this.containerAttribute === 'cp') {
+            else if (this.containerAttribute === 'cap') {
 
                 this.cap = new Cap(this.experience)
                 this.environment = new Environment(this.experience, container)
             }
-            else if (this.containerAttribute === 'mg') {
+            else if (this.containerAttribute === 'mug') {
 
                 this.mug = new Mug(this.experience)
                 this.environment = new Environment(this.experience, container)

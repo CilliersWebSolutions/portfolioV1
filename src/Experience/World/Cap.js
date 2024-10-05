@@ -16,7 +16,6 @@ export default class Cap {
         this.selectedColor = 'orange'
         this.selectedGraphic = 'flame'
 
-
         // Load Textures
         this.loadTextures()
 
@@ -65,7 +64,6 @@ export default class Cap {
 
     setModel() {
         const capMesh = this.resource.scene.children.find(child => child.name === 'capBaked')
-
 
         capMesh.material = new THREE.MeshStandardMaterial({ map: this.textures[this.selectedColor][this.selectedGraphic] })
 

@@ -17,7 +17,7 @@ export default class Robot {
         this.addonsTexture = this.resources.items.bakedTextureRobotAddons;
 
         this.currentAddonIndex = 0;
-        this.addonKeys = ['cr', 'sp', 'gn', 'ma']; // Example keys for your addons
+        this.addonKeys = ['sat', 'solar', 'gun', 'arm']; // Example keys for your addons
 
         // Initialize the addons meshes as a class property
         this.addonsMeshes = {};
@@ -43,10 +43,10 @@ export default class Robot {
         this.scene.add(baseMesh);
 
         // Initialize addons meshes
-        this.addonsMeshes['cr'] = this.resource.scene.children.find(child => child.name === 'satelliteBaked');
-        this.addonsMeshes['sp'] = this.resource.scene.children.find(child => child.name === 'solarBaked');
-        this.addonsMeshes['gn'] = this.resource.scene.children.find(child => child.name === 'gunBaked');
-        this.addonsMeshes['ma'] = this.resource.scene.children.find(child => child.name === 'armBaked');
+        this.addonsMeshes['sat'] = this.resource.scene.children.find(child => child.name === 'satelliteBaked');
+        this.addonsMeshes['solar'] = this.resource.scene.children.find(child => child.name === 'solarBaked');
+        this.addonsMeshes['gun'] = this.resource.scene.children.find(child => child.name === 'gunBaked');
+        this.addonsMeshes['arm'] = this.resource.scene.children.find(child => child.name === 'armBaked');
 
         // Apply materials to addon meshes
         for (const key in this.addonsMeshes) {

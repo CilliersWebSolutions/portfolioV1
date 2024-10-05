@@ -36,16 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
   //init Experiences
 
   // init hero section container
-  initializeExperience(document.querySelectorAll('[data-3d="c"]'))
+  initializeExperience(document.querySelectorAll('[data-3d="particles"]'))
 
   // init rover containers
-  initializeExperience(document.querySelectorAll('[data-3d="cr"], [data-3d="sp"], [data-3d="gn"], [data-3d="ma"]'))
+  initializeExperience(document.querySelectorAll('[data-3d="sat"], [data-3d="solar"], [data-3d="gun"], [data-3d="arm"]'))
 
   // init rubix container
-  initializeExperience(document.querySelectorAll('[data-3d="an"]'))
+  initializeExperience(document.querySelectorAll('[data-3d="rubix"]'))
 
   // init 3d store containers
-  initializeExperience(document.querySelectorAll('[data-3d="sh"], [data-3d="cp"], [data-3d="mg"]'))
+  initializeExperience(document.querySelectorAll('[data-3d="shirt"], [data-3d="cap"], [data-3d="mug"]'))
 
   // init 3D Map container
   initializeExperience(document.querySelectorAll('[data-3d="map"]'))

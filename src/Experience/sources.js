@@ -7,7 +7,7 @@ export default [
     {
         name: 'mapModel',
         type: 'gltfModel',
-        path: 'https://uploads-ssl.webflow.com/66c09f059cf529f5766a54b1/66c9d997e04685acef250d12_mapBakedAppliedTransforms.glb.txt'
+        path: 'https://cdn.prod.website-files.com/66c09f059cf529f5766a54b1/66e1822039364e8653baa8cf_mapExperience.glb.txt'
     },
 
     {
@@ -27,7 +27,7 @@ export default [
     {
         name: 'mapTexture',
         type: 'texture',
-        path: 'https://uploads-ssl.webflow.com/661bd3640db9efe63984e8eb/66bcb66e3828f2521d63556b_mapTextureBakedV2.avif'
+        path: 'https://cdn.prod.website-files.com/66c09f059cf529f5766a54b1/66dd8b3d0f5c1d74cee4f457_mapTextureBakedSand.jpg'
     },
     //         name: 'grassColorTexture',
     //         type: 'texture',

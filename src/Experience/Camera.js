@@ -20,13 +20,13 @@ export default class Camera {
     setInstance() {
         //const aspectRatio = this.sizes.width / this.sizes.height
 
-        if (this.containerAttribute === 'c') {
+        if (this.containerAttribute === 'particles') {
             this.instance = new THREE.PerspectiveCamera(15, this.sizes.width / this.sizes.height, 0.1, 100)
             // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
             this.instance.position.set(0, 0, 25)
             this.scene.add(this.instance)
         }
-        else if (['cr', 'sp', 'gn', 'ma'].includes(this.containerAttribute)) {
+        else if (['sat', 'solar', 'gun', 'arm'].includes(this.containerAttribute)) {
             this.instance = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
             this.instance.position.set(3, 3, 13)
             this.scene.add(this.instance)
@@ -34,25 +34,25 @@ export default class Camera {
         else if (this.containerAttribute === 'map') {
             this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
             // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
-            this.instance.position.set(0, 0, 40)
+            this.instance.position.set(0, 0, 30)
             this.scene.add(this.instance)
         }
-        else if (this.containerAttribute === 'an') {
+        else if (this.containerAttribute === 'rubix') {
             this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
             // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
             this.instance.position.set(2.2, 2.2, 2.2)
             this.scene.add(this.instance)
         }
-        else if (this.containerAttribute === 'sh', 'cp', 'mg') {
+        else if (this.containerAttribute === 'shirt', 'cap', 'mug') {
 
-            if (this.containerAttribute === 'sh') {
+            if (this.containerAttribute === 'shirt') {
                 this.instance = new THREE.PerspectiveCamera(50, this.sizes.width / this.sizes.height, 0.1, 100)
                 // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
                 this.instance.position.set(0, 0, 5)
                 this.scene.add(this.instance)
 
             }
-            else if (this.containerAttribute === 'cp') {
+            else if (this.containerAttribute === 'cap') {
                 this.instance = new THREE.PerspectiveCamera(50, this.sizes.width / this.sizes.height, 0.1, 100)
                 // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
                 this.instance.position.set(0, 0, 3)
@@ -60,7 +60,7 @@ export default class Camera {
 
             }
 
-            else if (this.containerAttribute === 'mg') {
+            else if (this.containerAttribute === 'mug') {
                 this.instance = new THREE.PerspectiveCamera(50, this.sizes.width / this.sizes.height, 0.1, 100)
                 // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
                 this.instance.position.set(0, 0, 2)
@@ -71,7 +71,7 @@ export default class Camera {
     }
 
     setOrbitControls() {
-        if (['cr', 'sp', 'gn', 'ma'].includes(this.containerAttribute)) {
+        if (['sat', 'solar', 'gun', 'arm'].includes(this.containerAttribute)) {
             this.controls = new OrbitControls(this.instance, this.canvas)
             this.controls.enableDamping = true
             this.controls.dampingFactor = 0.009
@@ -84,7 +84,7 @@ export default class Camera {
 
             this.controls.enableZoom = false
         }
-        else if (['c', 'sh', 'cp', 'mg'].includes(this.containerAttribute)) {
+        else if (['particles', 'shirt', 'cap', 'mug'].includes(this.containerAttribute)) {
             this.controls = new OrbitControls(this.instance, this.canvas)
             this.controls.enableDamping = true
             this.controls.dampingFactor = 0.01
@@ -98,7 +98,7 @@ export default class Camera {
 
             this.controls.enableZoom = false
         }
-        else if (['an'].includes(this.containerAttribute)) {
+        else if (['rubix'].includes(this.containerAttribute)) {
             this.controls = new OrbitControls(this.instance, this.canvas)
             this.controls.enableDamping = true
             this.controls.dampingFactor = 0.009
@@ -111,20 +111,20 @@ export default class Camera {
 
             this.controls.enableZoom = false
         }
-        else if (['map'].includes(this.containerAttribute)) {
-            this.controls = new OrbitControls(this.instance, this.canvas)
-            this.controls.enableDamping = true
-            this.controls.dampingFactor = 0.009
-            //this.controls.enablePan = true
-            //this.controls.maxPolarAngle = 1.5
-            //this.controls.minPolarAngle = 0.5
-            //this.controls.minZoom = 1
-            //this.controls.autoRotate = true
-            //this.controls.autoRotateSpeed = 0.5
+        // else if (['map'].includes(this.containerAttribute)) {
+        //     this.controls = new OrbitControls(this.instance, this.canvas)
+        //     this.controls.enableDamping = true
+        //     this.controls.dampingFactor = 0.009
+        //     this.controls.enablePan = true
+        //     this.controls.maxPolarAngle = 1.5
+        //     this.controls.minPolarAngle = 0.5
+        //     this.controls.minZoom = 1
+        //     this.controls.autoRotate = true
+        //     this.controls.autoRotateSpeed = 0.5
 
 
-            this.controls.enableZoom = true
-        }
+        //    // this.controls.enableZoom = true
+        // }
         else {
             this.controls = new OrbitControls(this.instance, this.canvas)
             this.controls.enableDamping = true

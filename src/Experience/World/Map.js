@@ -18,7 +18,7 @@ export default class Map {
 
     }
     setModel(containerAttribute) {
-        const mapMesh = this.resource.scene.children.find(child => child.name === 'mapBaked')
+        const mapMesh = this.resource.scene.children.find(child => child.name === 'mapStatic')
         if (!mapMesh) {
             console.error('Base mesh not found!')
             return;
@@ -30,11 +30,11 @@ export default class Map {
         mapMesh.material.side = THREE.DoubleSide
         mapMesh.scale.set(1, 1, 1)
         //mapMesh.position.x = 10
-        mapMesh.rotation.y = (Math.PI) - (Math.PI / 18)
+        mapMesh.rotation.x = (Math.PI / 4)
         //mapMesh.rotation.z = - Math.PI / 36
-        mapMesh.rotation.z = - Math.PI
+        // mapMesh.rotation.z = - Math.PI
 
-        mapMesh.rotation.z = Math.PI / 2
+        //mapMesh.rotation.z = Math.PI / 2
 
         this.scene.add(mapMesh)
         mapMesh.traverse((child) => {

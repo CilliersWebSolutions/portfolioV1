@@ -3,7 +3,6 @@ export default class EventEmitter {
         this.callbacks = {}
         this.callbacks.base = {}
     }
-
     on(_names, callback) {
         // Errors
         if (typeof _names === 'undefined' || _names === '') {
