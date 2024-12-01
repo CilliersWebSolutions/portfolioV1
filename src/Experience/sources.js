@@ -11,6 +11,12 @@ export default [
     },
 
     {
+        name: 'mapSeperatedParts',
+        type: 'gltfModel',
+        path: 'https://cdn.prod.website-files.com/66c09f059cf529f5766a54b1/674600321f1f939bdf8453fd_mapSeperatedPartsFixed.glb.txt'
+    },
+
+    {
         name: 'environmentMapTexture',
         type: 'cubeTexture',
         path: [

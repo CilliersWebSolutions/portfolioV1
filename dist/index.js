@@ -23458,8 +23458,8 @@ void main() {
     }
     setInstance() {
       if (this.containerAttribute === "particles") {
-        this.instance = new PerspectiveCamera(15, this.sizes.width / this.sizes.height, 0.1, 100);
-        this.instance.position.set(0, 0, 25);
+        this.instance = new PerspectiveCamera(8, this.sizes.width / this.sizes.height, 0.1, 100);
+        this.instance.position.set(0, 0, 30);
         this.scene.add(this.instance);
       } else if (["sat", "solar", "gun", "arm"].includes(this.containerAttribute)) {
         this.instance = new PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100);
@@ -23496,7 +23496,7 @@ void main() {
         this.controls.dampingFactor = 9e-3;
         this.controls.enablePan = false;
         this.controls.enableZoom = false;
-      } else if (["particles", "shirt", "cap", "mug"].includes(this.containerAttribute)) {
+      } else if (["shirt", "cap", "mug"].includes(this.containerAttribute)) {
         this.controls = new OrbitControls(this.instance, this.canvas);
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.01;
@@ -23514,14 +23514,14 @@ void main() {
         this.controls.autoRotate = true;
         this.controls.autoRotateSpeed = 0.5;
         this.controls.enableZoom = false;
-      } else {
+      } else if (["map"].includes(this.containerAttribute)) {
         this.controls = new OrbitControls(this.instance, this.canvas);
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 9e-3;
-        this.controls.enablePan = false;
+        this.controls.enablePan = true;
         this.controls.maxPolarAngle = 1.5;
-        this.controls.minPolarAngle = 1.5;
-        this.controls.enableZoom = false;
+        this.controls.minPolarAngle = 0.5;
+        this.controls.minZoom = 1;
       }
     }
     resize() {
@@ -23574,29 +23574,29 @@ void main() {
       this.resources = this.experience.resources;
       this.containerAttribute = container.getAttribute("data-3d");
       if (["sat", "solar", "gun", "arm"].includes(this.containerAttribute)) {
-        this.setDirectionalLight();
+        this.setDirectionalLightRover();
         this.setEnvironmentMap();
       } else if (this.containerAttribute === "rubix") {
         this.setAmbLight();
-        this.setEnvironmentMap3();
+        this.setEnvironmentMapRubix();
       } else if (this.containerAttribute === "shirt" || this.containerAttribute === "cap" || this.containerAttribute === "mug") {
-        this.setEnvironmentMap2();
-        this.setDirectionalLight2();
+        this.setEnvironmentMapStore();
+        this.setDirectionalLightStore();
       } else if (this.containerAttribute === "map") {
         this.setEnvironmentMap();
         this.setDirectionalLightMap();
       }
     }
-    setDirectionalLight() {
+    setDirectionalLightRover() {
       this.dirLight = new DirectionalLight(16777215, 10);
       this.dirLight.position.set(0, 2, 1);
       this.scene.add(this.dirLight);
     }
     setDirectionalLightMap() {
-      this.dirLightMap = new DirectionalLight(16777215, 2);
-      this.dirLightMap.position.set(0, 0, 11);
-      this.dirLightMap.target.position.set(0, 10, -3);
-      this.dirLightMap.shadow.camera.far = 500;
+      this.dirLightMap = new DirectionalLight(16777215, 6);
+      this.dirLightMap.position.set(0, 4, 16);
+      this.dirLightMap.target.position.set(0, 0, -11);
+      this.dirLightMap.shadow.camera.far = 1800;
       this.dirLightMap.shadow.mapSize.set(4096, 4096);
       this.dirLightMap.shadow.normalBias = 0.05;
       this.dirLightMap.castShadow = true;
@@ -23609,7 +23609,7 @@ void main() {
       const helper = new DirectionalLightHelper(this.dirLightMap, 1);
       this.scene.add(helper);
     }
-    setDirectionalLight2() {
+    setDirectionalLightStore() {
       this.dirLightFront = new DirectionalLight(16777215, 4);
       this.dirLightFront.position.set(0, 0, 9);
       this.scene.add(this.dirLightFront);
@@ -23620,7 +23620,7 @@ void main() {
     }
     setEnvironmentMap() {
       this.environmentMap = {};
-      this.environmentMap.intensity = 1.5;
+      this.environmentMap.intensity = 3;
       this.environmentMap.texture = this.resources.items.environmentMapTexture;
       this.environmentMap.texture.colorSpace = LinearSRGBColorSpace;
       this.scene.environment = this.environmentMap.texture;
@@ -23635,7 +23635,7 @@ void main() {
       };
       this.environmentMap.updateMaterial();
     }
-    setEnvironmentMap2() {
+    setEnvironmentMapStore() {
       this.environmentMap = {};
       this.environmentMap.intensity = 3;
       this.environmentMap.texture = this.resources.items.environmentMapTexture;
@@ -23652,7 +23652,7 @@ void main() {
       };
       this.environmentMap.updateMaterial();
     }
-    setEnvironmentMap3() {
+    setEnvironmentMapRubix() {
       this.environmentMap = {};
       this.environmentMap.intensity = 2;
       this.environmentMap.texture = this.resources.items.environmentMapTexture;
@@ -28406,7 +28406,7 @@ void main() {
         vertexShader: new VertexShader().getShader(),
         fragmentShader: new FragmentShader().getShader(),
         uniforms: {
-          uSize: { value: 2 },
+          uSize: { value: 1.5 },
           uProgress: { value: 0 },
           uResolution: { value: new Vector2(this.sizes.width * this.sizes.pixelRatio, this.sizes.height * this.sizes.pixelRatio) },
           uColorA: { value: new Color("#98d9ce") },
@@ -28884,29 +28884,42 @@ void main() {
       this.scene = this.experience.scene;
       this.resources = this.experience.resources;
       this.resource = this.resources.items.mapModel;
-      this.texture = this.resources.items.mapTexture;
+      this.mapSeperatedParts = this.resources.items.mapSeperatedParts;
+      this.mapTexture = this.resources.items.mapTexture;
       console.log("this is the map model", this.resource);
       this.setModel(containerAttribute);
     }
     setModel(containerAttribute) {
-      const mapMesh = this.resource.scene.children.find((child) => child.name === "mapStatic");
-      if (!mapMesh) {
-        console.error("Base mesh not found!");
-        return;
-      }
-      mapMesh.material = new MeshStandardMaterial({ map: this.texture });
-      this.setupTexture(mapMesh.material.map);
-      mapMesh.material.side = DoubleSide;
-      mapMesh.scale.set(1, 1, 1);
-      mapMesh.rotation.x = Math.PI / 4;
-      this.scene.add(mapMesh);
-      mapMesh.traverse((child) => {
-        if (child instanceof Mesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
-      this.mapMesh = mapMesh;
+      const mapStaticMesh = this.resource.scene.children.find((child) => child.name === "mapStatic");
+      const mapSeperatedPartsMesh = this.resource.scene.children.find((child) => child.name === "mapStatic");
+      const mapFamilyMesh = this.mapSeperatedParts.scene.children.find((child) => child.name === "mapFamily");
+      const mapFoodMesh = this.mapSeperatedParts.scene.children.find((child) => child.name === "mapFood");
+      const mapOfficeMesh = this.mapSeperatedParts.scene.children.find((child) => child.name === "mapOffice");
+      const mapShopMesh = this.mapSeperatedParts.scene.children.find((child) => child.name === "mapShop");
+      const mapSingleMesh = this.mapSeperatedParts.scene.children.find((child) => child.name === "mapSingle");
+      const mapToiletsMesh = this.mapSeperatedParts.scene.children.find((child) => child.name === "mapToilets");
+      mapStaticMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      mapFamilyMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      mapFoodMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      mapOfficeMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      mapShopMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      mapSingleMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      mapToiletsMesh.material = new MeshStandardMaterial({ map: this.mapTexture });
+      this.setupTexture(mapStaticMesh.material.map);
+      this.setupTexture(mapFamilyMesh.material.map);
+      this.setupTexture(mapFoodMesh.material.map);
+      this.setupTexture(mapOfficeMesh.material.map);
+      this.setupTexture(mapShopMesh.material.map);
+      this.setupTexture(mapSingleMesh.material.map);
+      this.setupTexture(mapToiletsMesh.material.map);
+      this.scene.add(mapStaticMesh);
+      this.scene.add(mapFamilyMesh);
+      this.scene.add(mapFoodMesh);
+      this.scene.add(mapOfficeMesh);
+      this.scene.add(mapShopMesh);
+      this.scene.add(mapSingleMesh);
+      this.scene.add(mapToiletsMesh);
+      this.mapStaticMesh = mapStaticMesh;
     }
     setupTexture(texture) {
       texture.flipY = false;
@@ -31967,6 +31980,11 @@ void main() {
       name: "mapModel",
       type: "gltfModel",
       path: "https://cdn.prod.website-files.com/66c09f059cf529f5766a54b1/66e1822039364e8653baa8cf_mapExperience.glb.txt"
+    },
+    {
+      name: "mapSeperatedParts",
+      type: "gltfModel",
+      path: "https://cdn.prod.website-files.com/66c09f059cf529f5766a54b1/674600321f1f939bdf8453fd_mapSeperatedPartsFixed.glb.txt"
     },
     {
       name: "environmentMapTexture",

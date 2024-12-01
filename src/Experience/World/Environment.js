@@ -10,20 +10,20 @@ export default class Environment {
         this.containerAttribute = container.getAttribute('data-3d')
 
         if (['sat', 'solar', 'gun', 'arm'].includes(this.containerAttribute)) {
-            this.setDirectionalLight()
+            this.setDirectionalLightRover()
             this.setEnvironmentMap()
         }
 
         else if (this.containerAttribute === 'rubix') {
             this.setAmbLight()
-            this.setEnvironmentMap3()
+            this.setEnvironmentMapRubix()
             //this.setDirectionalLight()
         }
 
         else if (this.containerAttribute === 'shirt' || this.containerAttribute === 'cap' || this.containerAttribute === 'mug') {
 
-            this.setEnvironmentMap2()
-            this.setDirectionalLight2()
+            this.setEnvironmentMapStore()
+            this.setDirectionalLightStore()
         }
 
         else if (this.containerAttribute === 'map') {
@@ -35,7 +35,7 @@ export default class Environment {
             this.setDirectionalLightMap()
         }
     }
-    setDirectionalLight() {
+    setDirectionalLightRover() {
         this.dirLight = new THREE.DirectionalLight(0xffffff, 10)
         this.dirLight.position.set(0, 2, 1)
         this.scene.add(this.dirLight)
@@ -43,11 +43,11 @@ export default class Environment {
     }
 
     setDirectionalLightMap() {
-        this.dirLightMap = new THREE.DirectionalLight(0xffffff, 2)
-        this.dirLightMap.position.set(0, 0, 11)
+        this.dirLightMap = new THREE.DirectionalLight(0xffffff, 6)
+        this.dirLightMap.position.set(0, 4, 16)
         //this.dirLightMap.rotation.x = Math.PI / 9
-        this.dirLightMap.target.position.set(0, 10, -3)
-        this.dirLightMap.shadow.camera.far = 500
+        this.dirLightMap.target.position.set(0, 0, -11)
+        this.dirLightMap.shadow.camera.far = 1800
         this.dirLightMap.shadow.mapSize.set(4096, 4096)
         this.dirLightMap.shadow.normalBias = 0.05
         this.dirLightMap.castShadow = true
@@ -62,7 +62,7 @@ export default class Environment {
         this.scene.add(helper);
     }
 
-    setDirectionalLight2() {
+    setDirectionalLightStore() {
         this.dirLightFront = new THREE.DirectionalLight(0xffffff, 4)
         this.dirLightFront.position.set(0, 0, 9)
 
@@ -95,7 +95,8 @@ export default class Environment {
     setEnvironmentMap() {
         this.environmentMap = {}
 
-        this.environmentMap.intensity = 1.5
+        this.environmentMap.intensity = 3
+
 
         this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.colorSpace = THREE.LinearSRGBColorSpace
@@ -115,7 +116,7 @@ export default class Environment {
         this.environmentMap.updateMaterial()
     }
 
-    setEnvironmentMap2() {
+    setEnvironmentMapStore() {
         this.environmentMap = {}
 
         this.environmentMap.intensity = 3
@@ -138,7 +139,7 @@ export default class Environment {
         this.environmentMap.updateMaterial()
     }
 
-    setEnvironmentMap3() {
+    setEnvironmentMapRubix() {
         this.environmentMap = {}
 
         this.environmentMap.intensity = 2

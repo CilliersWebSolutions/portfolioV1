@@ -85,7 +85,7 @@ export default class Particles {
             vertexShader: new VertexShader().getShader(),
             fragmentShader: new FragmentShader().getShader(),
             uniforms: {
-                uSize: { value: 2 },
+                uSize: { value: 1.5 },
                 uProgress: { value: 0 },
                 uResolution: { value: new THREE.Vector2(this.sizes.width * this.sizes.pixelRatio, this.sizes.height * this.sizes.pixelRatio) },
                 uColorA: { value: new THREE.Color('#98d9ce') },

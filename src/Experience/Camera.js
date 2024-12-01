@@ -21,9 +21,9 @@ export default class Camera {
         //const aspectRatio = this.sizes.width / this.sizes.height
 
         if (this.containerAttribute === 'particles') {
-            this.instance = new THREE.PerspectiveCamera(15, this.sizes.width / this.sizes.height, 0.1, 100)
-            // this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
-            this.instance.position.set(0, 0, 25)
+            this.instance = new THREE.PerspectiveCamera(8, this.sizes.width / this.sizes.height, 0.1, 100)
+            //this.instance = new THREE.OrthographicCamera(-5 * aspectRatio, 5 * aspectRatio, 5, -5, 0.1, 1000)
+            this.instance.position.set(0, 0, 30)
             this.scene.add(this.instance)
         }
         else if (['sat', 'solar', 'gun', 'arm'].includes(this.containerAttribute)) {
@@ -84,7 +84,7 @@ export default class Camera {
 
             this.controls.enableZoom = false
         }
-        else if (['particles', 'shirt', 'cap', 'mug'].includes(this.containerAttribute)) {
+        else if (['shirt', 'cap', 'mug'].includes(this.containerAttribute)) {
             this.controls = new OrbitControls(this.instance, this.canvas)
             this.controls.enableDamping = true
             this.controls.dampingFactor = 0.01
@@ -111,31 +111,30 @@ export default class Camera {
 
             this.controls.enableZoom = false
         }
-        // else if (['map'].includes(this.containerAttribute)) {
-        //     this.controls = new OrbitControls(this.instance, this.canvas)
-        //     this.controls.enableDamping = true
-        //     this.controls.dampingFactor = 0.009
-        //     this.controls.enablePan = true
-        //     this.controls.maxPolarAngle = 1.5
-        //     this.controls.minPolarAngle = 0.5
-        //     this.controls.minZoom = 1
-        //     this.controls.autoRotate = true
-        //     this.controls.autoRotateSpeed = 0.5
-
-
-        //    // this.controls.enableZoom = true
-        // }
-        else {
+        else if (['map'].includes(this.containerAttribute)) {
             this.controls = new OrbitControls(this.instance, this.canvas)
             this.controls.enableDamping = true
             this.controls.dampingFactor = 0.009
-            this.controls.enablePan = false
+            this.controls.enablePan = true
             this.controls.maxPolarAngle = 1.5
-            this.controls.minPolarAngle = 1.5
+            this.controls.minPolarAngle = 0.5
+            this.controls.minZoom = 1
+            // this.controls.autoRotate = true
+            // this.controls.autoRotateSpeed = 0.5
 
-
-            this.controls.enableZoom = false
+            //    // this.controls.enableZoom = true
         }
+        // else {
+        //     this.controls = new OrbitControls(this.instance, this.canvas)
+        //     this.controls.enableDamping = true
+        //     this.controls.dampingFactor = 0.009
+        //     this.controls.enablePan = false
+        //     this.controls.maxPolarAngle = 1.5
+        //     this.controls.minPolarAngle = 1.5
+
+
+        //     this.controls.enableZoom = false
+        // }
     }
 
     resize() {
