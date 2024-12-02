@@ -26,8 +26,8 @@ export default class Resources extends EventEmitter {
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
 
         //DRACOLoader setup
-        this.loaders.dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/gh/CilliersWebSolutions/draco@main/draco/')
-        //this.loaders.dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/gh/CilliersWebSolutions/portfolioV1@main/dist/draco/')
+        //this.loaders.dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/gh/CilliersWebSolutions/draco@main/draco/')
+        this.loaders.dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/gh/CilliersWebSolutions/portfolioV1@main/dist/draco/')
         this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader)
     }
 
